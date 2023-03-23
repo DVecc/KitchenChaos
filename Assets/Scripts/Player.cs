@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -28,10 +29,13 @@ public class Player : MonoBehaviour
             inputVector.x += 1;
         }
 
+        inputVector = inputVector.normalized;
+
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
-        inputVector = inputVector.normalized;
+        float rotateSpeed = 10f;
         transform.position += moveDir * moveSpeed * Time.deltaTime;
-        Debug.Log(Time.deltaTime);
+        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
+        inputVector.GetType();
     }
 }
